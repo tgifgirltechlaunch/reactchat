@@ -6,8 +6,6 @@ module.exports = function(server) {
     io.on('connection', function (socket) {
       socket.emit('connected', 'connection stablished');
   
-      socket.emit('MESSAGES', []);
-  
       socket.on('MESSAGE', function (message) {
         // save in the database and emit to all users
         let newMessage = new Message(message);

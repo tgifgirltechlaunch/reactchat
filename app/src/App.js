@@ -10,12 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    socket.on('MESSAGES', (messages) => {
-      this.setState({
-        messages: messages
-      });
-    });
-
+    
     socket.on('MESSAGE', (message) => {
       this.setState({
         messages: this.state.messages.concat([message]),
