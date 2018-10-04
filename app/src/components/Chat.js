@@ -8,7 +8,8 @@ const Chat = (props) => {
   return (
     <div className="chat-container">
       <div className="chat-header">Welcome</div>
-      <div className="chat-messages">
+      
+      <div className="chat-messages cool-scrollbar">
         {
           messages.map((message) => (
             <div className="bubble-left" key={message._id}>{message.text}</div>
