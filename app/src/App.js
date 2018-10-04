@@ -1,51 +1,75 @@
 import React, { Component } from 'react';
 import Chat from './components/Chat';
 import socket from './socket';
+import { onFetchMessages } from './actions/MESSAGES';
 
 class App extends Component {
-    state ={
-        messages: [],
+  state = {
+    messages: [],
+    text: ''
+  }
+
+  componentDidMount() {
+    socket.on('MESSAGES', (messages) => {
+      this.setState({
+        messages: messages
+      });
+    });
+
+    socket.on('MESSAGE', (message) => {
+      this.setState({
+        messages: this.state.messages.concat([message]),
         text: ''
-    }
+      });
+    });
 
-    componentDidMount(){
-        socket.on('MESSAGES', (messages) => {
-            this.setState({
-                messages: messages
-            });
-        });
+    this.onFetchMessages();
+  }
 
-        socket.on('MESSAGE', (message) => {
-            this.setState({
-                messages: this.state.messages.concat([message]), 
-                text:''
-            });
-            
-        });
-    }
+  onFetchMessages = async () => {
+    const response = await onFetchMessages();
 
-    onChange = (e) => {
-        this.setState({
-            text: e.target.value
-        })
-    }
+    console.log('response ', response);
 
-    onSendMessage = () => {
-        socket.emit('MESSAGE', {
-            text: this.state.text
-        });
+    if (response.success) {
+      this.setState({
+        messages: response.messages
+      });
     }
+  }
+
+  onChange = (e) => {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  onKeyPress = (e) => {
+    const key = e.keyCode || e.which;
+
+    if (key === 13) {
+      this.onSendMessage();
+    }
+  }
+
+  onSendMessage = () => {
+    if (this.state.text) {
+      socket.emit('MESSAGE', {
+        text: this.state.text
+      });
+    }
+  }
 
   render() {
     return (
       <div className="App">
         <Chat 
-        {...this.state}
-        onChange={this.onChange}
-        onSendMessage={this.onSendMessage}
+          {...this.state}
+          onChange={this.onChange}
+          onKeyPress={this.onKeyPress}
+          onSendMessage={this.onSendMessage}
         />
       </div>
-        
     );
   }
 }

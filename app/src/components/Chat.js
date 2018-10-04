@@ -3,29 +3,30 @@ import OutlineInput from './OutlineInput';
 import CircleButton from './CircleButton';
 
 const Chat = (props) => {
-  const { messages, text, onChange, onSendMessage } = props;
+  const { messages, text, onChange, onSendMessage, onKeyPress } = props;
 
   return (
     <div className="chat-container">
-      <div style={{
-        height: '400px',
-        backgroundColor: '#ff0000'
-      }}>
+      <div className="chat-header">Welcome</div>
+      <div className="chat-messages">
         {
-          messages.map((message, i) => (
-            <div key={i}>{message.text}</div>
+          messages.map((message) => (
+            <div className="bubble-left" key={message._id}>{message.text}</div>
           ))
         }
       </div>
+      <div className="chat-input-btn-container">
+        <OutlineInput 
+          text={text}
+          onChange={onChange} 
+          onKeyPress={onKeyPress}
+        />
 
-      <OutlineInput 
-        text={text}
-        onChange={onChange} 
-      />
-
-      <CircleButton 
-        onSendMessage={onSendMessage}
-      />
+        <CircleButton 
+          onSendMessage={onSendMessage}
+        />
+      </div>
+      
     </div>
   )
 }

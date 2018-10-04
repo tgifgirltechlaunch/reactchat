@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 const OutlineInput = (props) => {
-  const { classes, text, onChange } = props;
+  const { classes, text, onChange, onKeyPress } = props;
 
   return (
     <div className={classes.root}>
@@ -26,7 +26,8 @@ const OutlineInput = (props) => {
         label="Enter Message"
         style={{ margin: 8 }}
         placeholder="Placeholder"
-        fullWidth
+        border-color="rgba(238, 63, 63, 0.8)"
+        box-shadow="0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6)"
         margin="normal"
         variant="outlined"
         InputLabelProps={{
@@ -34,6 +35,7 @@ const OutlineInput = (props) => {
         }}
         value={text}
         onChange={onChange}
+        onKeyPress={onKeyPress}
       />
     </div>
   );

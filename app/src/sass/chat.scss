@@ -1,0 +1,87 @@
+.chat-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .chat-header{
+        height: 50px;
+        background-color: #ff9900;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .chat-messages{
+        flex: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-direction: column;
+        display: flex;
+        background: url('../images/bg.jpg') no-repeat;
+        background-size: cover;
+
+        .bubble-left{
+            display: inline-block;
+            padding: 24px;
+            font-size: 24px;
+            background: #fff;
+            position: relative;
+            -moz-border-radius: 0px 10px 0px 10px;
+            -webkit-border-radius: 0px 10px 0px 10px;
+            border-radius: 0px 10px 0px 10px;
+            margin: 10px;
+        }
+
+        .bubble-left:before {
+            content: " ";
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: -8px;
+            right: auto;
+            top: 0px;
+            bottom: auto;
+            border: 20px solid;
+            border-color: #fff transparent transparent;
+        }
+    }
+
+    .chat-input-btn-container{
+        display: flex;
+        background: #ff9900;
+        padding: 20px; 
+    }
+    .OutlineInput-root-1{
+        flex: 1;
+    }
+    .MuiFormControl-root-4{
+        min-width: 90%;
+        background: #fff;
+    }
+
+    .MuiFormLabel-root-15 {
+        color: rgb(238, 63, 63);
+        padding: 0;
+        margin: 10px 0;
+        font-size: 2rem;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        line-height: 0;
+    }
+
+    .MuiButton-containedPrimary-71 {
+        color: #fff;
+        background-color: rgb(238, 63, 63);
+    }
+
+    .MuiOutlinedInput-input-30 {
+        padding: 14.5px 14px;
+        font-size: 24px;
+        margin: 10px;
+    }
+
+    .circlebtn{
+        margin: 15px auto;
+    }
+}

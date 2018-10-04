@@ -2,9 +2,8 @@ const port = 3001;
 const express = require('express');
 const fs = require('fs');
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const uuidv1 = require('uuid/v1');
+const httpServer = require('http').Server(app);
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,43 +19,16 @@ app.use(function (req, res, next) {
   next();
 });
 
-io.on('connection', function (socket){
-  console.log('a user connected', socket.id);
-  socket.emit('connected', 'connection established');
+// Initialize databse
+require('./database')();
 
-  socket.emit('MESSAGES', [
-    {
-      id: uuidv1(),
-      text:'i love coding'
-    },
-    {
-      id: uuidv1(),
-      text:'i love coding'
-    },
-    {
-      id: uuidv1(),
-      text:'i love coding'
-    },
-    {
-      id: uuidv1(),
-      text:'i love coding'
-    },
-  
-  ]);
+// Initialize the sockets
+require('./sockets')(httpServer);
 
+// Initialize the routes
+require('./routes')(app);
 
-
-
-socket.on('MESSAGE', function(message){
-  io.emit('MESSAGE', {
-
-    id: uuidv1(),
-    text: message.text
-  });
-});
-});
-
-http.listen(port, function(err) {
+httpServer.listen(port, function(err) {
   if(err) throw err;
   console.log('listening on port ' + port);
 });
